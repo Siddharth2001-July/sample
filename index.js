@@ -19,6 +19,8 @@ const hindiTranslations = {
   "outline": "आउटलाइन",
   "searchDocument": "खोजें",
   "annotations": "टिप्पणियाँ",
+  "accessibilityLabelDropdownGroupToggle": "<>",
+  "pageX": "पेज {{page}}",
 };
 
 async function runner() {
