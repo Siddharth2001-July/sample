@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Preload the PSPDFKit script -->
+    <link
+      rel="preload"
+      href="https://cdn.cloud.pspdfkit.com/pspdfkit-web@2024.6.0/pspdfkit.js"
+      as="script"
+    />
+    <!-- Prefetch the PSPDFKit script -->
+    <link
+      rel="prefetch"
+      href="https://cdn.cloud.pspdfkit.com/pspdfkit-web@2024.6.0/pspdfkit.js"
+    />
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <h1>PSPDFKit Sample</h1>
+  </header>
+  <nav>
+      <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Example PDF</a></li>
+          <li><a href="#">Example PDF with Annotations</a></li>
+          <li><a href="#">Example PDF with Editable Annotations</a></li>
+      </ul>
+  </nav>
+  <main>
+      <div id="pspdfkit" style="width: 80%; height: 75vh;"></div>
+      <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores unde nisi iure cupiditate aliquam temporibus perferendis error minima fugiat earum corporis soluta dolores aperiam neque deserunt autem itaque, atque voluptas!</div>
+  </main>
+  <footer>
+      <p>&copy; 2021 PSPDFKit GmbH. All rights reserved.</p>
+  </footer>
+    <script type="module" src="index.js"></script>
+    <script src="https://cdn.cloud.pspdfkit.com/pspdfkit-web@2024.6.0/pspdfkit.js"></script>
+  </body>
+</html>
