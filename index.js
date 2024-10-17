@@ -2,7 +2,8 @@ const PSPDFKit = window.PSPDFKit;
 import {createSignaturesInfoNode, signaturesInfoSrc} from './helpers.js';
 
 // We need to inform PSPDFKit where to look for its library assets, i.e. the location of the `pspdfkit-lib` directory.
-const baseUrl = "https://cdn.cloud.pspdfkit.com/pspdfkit-web@2024.6.0/";
+// const baseUrl = "https://cdn.cloud.pspdfkit.com/pspdfkit-web@2024.6.0/";
+const baseUrl = `${window.location.protocol}//${window.location.host}/assets/`;
 // Bringing Basline UI
 const {
   UI: { createBlock, Recipes, Interfaces, Core },
@@ -23,7 +24,9 @@ const hindiTranslations = {
   "pageX": "पेज {{page}}",
 };
 
-async function runner() {
+async function initializePSPDFKit(pdfArrayBuffer) {
+  document.getElementById('drop-area').style.display = 'none';
+  document.querySelector('.container').style.display = 'flex';
   try {
     // Step 1 of 2 of translation
     PSPDFKit.I18n.locales.push('hi');
@@ -32,7 +35,7 @@ async function runner() {
     const instance = await PSPDFKit.load({
       baseUrl,
       container: "#pspdfkit",
-      document: './signed_doc.pdf',
+      document: pdfArrayBuffer,
       toolbarItems: [...PSPDFKit.defaultToolbarItems, { type: "comment" }],
       
       // Step 2 of 2 of translation
@@ -78,4 +81,73 @@ async function runner() {
     console.error("Error loading PSPDFKit:", error.message);
   }
 }
-runner();
+
+function uploadDoc() {
+  const dropArea = document.getElementById('drop-area');
+  const fileInput = document.getElementById('file-input');
+  const uploadButton = document.getElementById('upload-button');
+  const status = document.getElementById('status');
+
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false);
+  });
+
+  function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropArea.addEventListener(eventName, highlight, false);
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, unhighlight, false);
+  });
+
+  function highlight() {
+    dropArea.classList.add('highlight');
+  }
+
+  function unhighlight() {
+    dropArea.classList.remove('highlight');
+  }
+
+  dropArea.addEventListener('drop', handleDrop, false);
+  fileInput.addEventListener('change', handleFiles, false);
+  uploadButton.addEventListener('click', () => fileInput.click());
+
+  function handleDrop(e) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    handleFiles(files);
+  }
+
+  function handleFiles(files) {
+    if (files instanceof FileList) {
+      ([...files]).forEach(uploadFile);
+    } else if (files.target && files.target.files) {
+      ([...files.target.files]).forEach(uploadFile);
+    }
+  }
+
+  function uploadFile(file) {
+    if (file.type !== "application/pdf") {
+      status.textContent = "Please upload a valid PDF file.";
+      return;
+    }
+
+    status.textContent = "Uploading...";
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      status.textContent = "Upload successful. Initializing PDF viewer...";
+
+      initializePSPDFKit(e.target.result);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+}
+
+// Call the uploadDoc function when the page loads
+document.addEventListener('DOMContentLoaded', uploadDoc);
