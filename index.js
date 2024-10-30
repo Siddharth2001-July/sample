@@ -19,9 +19,7 @@ const hindiTranslations = {
   "thumbnails": "थंबनेल",
   "outline": "आउटलाइन",
   "searchDocument": "खोजें",
-  "annotations": "टिप्पणियाँ",
-  "accessibilityLabelDropdownGroupToggle": "<>",
-  "pageX": "पेज {{page}}",
+  "annotations": "टिप्पणियाँ"
 };
 
 async function initializePSPDFKit(pdfArrayBuffer) {

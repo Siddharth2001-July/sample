@@ -56,6 +56,16 @@ main {
     border: 1px solid #ddd;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+#right-side{
+    height: 75vh;
+    z-index: 100000;
+    background: white;
+}
+.text-content {
+    flex: 1;
+    padding: 10px;
+    box-sizing: border-box;
+}
 footer {
     background-color: #333;
     color: #fff;
