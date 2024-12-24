@@ -1,8 +1,9 @@
 {
   "dependencies": {
-    "pspdfkit": "https://my.pspdfkit.com/download/pspdfkit-web/nightly.tar.gz?cachebust=todaysdate"
+    "pspdfkit" : "./tarballs/PSPDFKit-Web-binary-2024.9.0-7e18d8f.tar.gz"
   },
   "scripts": {
+    "cleanCache": "npm cache clean --force",
     "copyAssets": "cp -R ./node_modules/pspdfkit/dist/ ./assets/",
     "start": "serve -l 8080 ."
   }
