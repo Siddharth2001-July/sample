@@ -58,7 +58,7 @@ main {
 }
 #right-side{
     height: 75vh;
-    z-index: 100000;
+    z-index: 1;
     background: white;
 }
 .text-content {
