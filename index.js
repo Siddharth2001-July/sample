@@ -67,6 +67,8 @@ async function initializePSPDFKit(pdfArrayBuffer) {
           }).createComponent(),
         }),
       },
+
+      styleSheets: ['./style.css']
     });
     window.instance = instance;
     // Set the initial view state to fit the width of the page
